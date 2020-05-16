@@ -10,6 +10,7 @@ const goToLink = async () => {
     const page = await browser.newPage();
     await page.goto(process.env.LINK);
     await page.waitForResponse(response => response.url() === process.env.RESPONSELINK && response.status() === 200);
+    await browser.close();
     return await ping.promise.probe(process.env.HOST);
 }
 
