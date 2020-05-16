@@ -34,7 +34,7 @@ const pingHost = async () => {
         } else {
             console.log('Connection is active')
         }
-    }, 1000)
+    }, process.env.INTERVAL)
 };
 
 pingHost();
