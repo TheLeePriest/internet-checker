@@ -1,0 +1,25 @@
+{
+  "name": "internet-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheLeePriest/internet-checker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheLeePriest/internet-checker/issues"
+  },
+  "homepage": "https://github.com/TheLeePriest/internet-checker#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "ping": "^0.2.3",
+    "puppeteer": "^3.0.4"
+  }
+}
