@@ -4,7 +4,7 @@ I got sick of my Sky broadband connection dropping, so I created this little scr
 
 The Puppeteer browser visits the Sky fix URL then returns the value to the script. The script runs on an interval that can also be configured in the .env file.
 
-## Usage
+## Setup
 
 Clone the repo and then install the dependencies using: 
 
@@ -15,6 +15,17 @@ or
 ```javascript
 yarn install
 ```
+
+Add a `.env` file to the root and include the following variables:
+
+| Name         |  Type    |
+| -------------| :------: |
+| LINK         |  string  |
+| HOSTLINK     |  string  |
+| INTERVAL     |  int     |
+| RESPONSELINK |  string  |
+
+## Usage
 
 Run the script by using either of the following:
 
