@@ -20,7 +20,8 @@
   "dependencies": {
     "dotenv": "^8.2.0",
     "ping": "^0.2.3",
-    "puppeteer": "^3.0.4"
+    "puppeteer": "^3.0.4",
+    "waait": "^1.0.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

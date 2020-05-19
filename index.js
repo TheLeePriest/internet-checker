@@ -1,40 +1,41 @@
 require('dotenv').config();
 const ping = require('ping');
 const puppeteer = require('puppeteer');
+const wait = require('waait');
 
 let checkRunning = false;
+let connectionActive = true;
 
 const goToLink = async () => {
-    checkRunning = true;
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(process.env.LINK);
-    await page.waitForResponse(response => response.url() === process.env.RESPONSELINK && response.status() === 200);
+    const finalResponse = await page.waitForResponse(response => response.url() === process.env.RESPONSELINK && response.status() === 200, {timeout: 120000});
     await browser.close();
-    return await ping.promise.probe(process.env.HOST);
+    return finalResponse.ok();
 }
 
 const pingHost = async () => {
-    setInterval(async () => {
-        if(checkRunning) {
-            console.log('Check is running...')
-            return;
-        }
-
+    while(!checkRunning) {
         const res = await ping.promise.probe(process.env.HOST, {timeout: 10});
+        connectionActive = res.alive;
 
-        if (!res.alive) {
-            console.log('Connection is down, running the fix...')
-            await goToLink().then(linkRes => {
+        if (!checkRunning && !connectionActive) {
+            console.log('Connection is down, running the fix...');
+            checkRunning = true;
+
+            await goToLink().then(() => {
                 checkRunning = false;
-                if (linkRes.alive) {
-                    return;
-                }
-            }).catch(error => console.log(error))
-        } else {
-            console.log('Connection is active')
+            }).catch(error => {
+                console.log(error)
+                checkRunning = false;
+                connectionActive = false;
+            })
         }
-    }, process.env.INTERVAL)
+
+        await wait(1000);
+        console.log('Connection is active, running the ping again...')
+    }
 };
 
 pingHost();
